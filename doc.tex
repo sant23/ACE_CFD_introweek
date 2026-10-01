@@ -1,0 +1,39 @@
+% MATLAB Script to Plot Water Height in Emptying Tank
+ % Parameters
+ rho = 1000; % density ( kg / m ^3)
+ D = 1; % diameter ( m )
+ h0 = 2; % initial water height ( m )
+ g = 9.81; % gravitational acceleration ( m / s ^2)
+ C = 0.001; % valve constant ( m ^3/ s / Pa )
+ % Derived constants
+ k = 4 * C * rho * g / ( pi * D ^2);
+
+ % Time to reach half - empty height
+ t_half = ( pi * D ^2 * log (2)) / (4 * C * rho * g );
+
+ % Time to reach 0.001 h0 ( effectively empty )
+ t_empty = ( pi * D ^2 * log (1000)) / (4 * C * rho * g );
+
+ % Time vector from 0 to t_empty
+ t = linspace (0 , t_empty , 1000);
+
+ % Water height as a function of time
+ h = h0 * exp ( - k * t );
+
+ % Average height between t =0 and t_half
+ h_avg = h0 / (2 * log (2)); % Average height
+
+ % Plotting
+ figure ;
+ plot (t , h , ’b - ’ , ’ LineWidth ’ , 2); % Water height vs time
+ hold on ;
+ yline ( h_avg , ’r - - ’ , ’ LineWidth ’ , 2); % Average height line
+ xlabel ( ’ Time ␣ ( s ) ’ );
+ ylabel ( ’ Water ␣ Height ␣ ( m ) ’ );
+ title ( ’ Water ␣ Height ␣ in ␣ an ␣ Emptying ␣ Tank ’ );
+ legend ( ’ Water ␣ Height ’ , ’ Average ␣ Height ␣ between ␣ t =0 ␣ and ␣ t_ {1/2} ’ ,...
+ ’ Location ’ , ’ Best ’ );
+ grid on ;
+ hold off ;
+
+
